@@ -1,0 +1,6 @@
+*.swp
+*.pyc
+dist/
+coverage/
+docs/_build/
+pyvagrant.egg-info/
