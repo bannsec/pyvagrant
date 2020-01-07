@@ -14,6 +14,9 @@ class Vagrant(object):
             LOGGER.error(err)
             raise Exception(err)
 
+    def __repr__(self):
+        return "<Vagrant v" + self.version + ">"
+
     def search(self, term):
         return self.cloud.search(term)
 
@@ -38,6 +41,14 @@ class Vagrant(object):
             boxes.append(Box(self, name.decode(), version.decode(), providers=provider.decode()))
 
         return boxes
+
+    @property
+    def version(self):
+        try:
+            return self.__version
+        except AttributeError:
+            self.__version = subprocess.check_output(["vagrant", "-v"]).decode().split(" ")[-1].strip()
+            return self.__version
 
 
 import subprocess
