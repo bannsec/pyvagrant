@@ -1,10 +1,13 @@
 import logging
 import os
 import shutil
+import shelve
+from . import config
 
 class Vagrant(object):
 
     def __init__(self):
+        self._config = shelve.open(os.path.join(config.appdirs.user_config_dir, "pyvagrant"), flag="c", writeback=True)
         self._prechecks()
 
     def _prechecks(self):
@@ -30,7 +33,19 @@ class Vagrant(object):
 
     @property
     def default_provider(self):
-        return "virtualbox"
+        try:
+            return self._config['default_provider']
+        except KeyError:
+            self._config['default_provider'] = "virtualbox"
+            return "virtualbox"
+
+    @default_provider.setter
+    def default_provider(self, default_provider):
+        standard_providers = ["vmware_desktop", "virtualbox", "parallels", "libvirt" , "hyperv"]
+        if default_provider not in standard_providers:
+            LOGGER.warning("default_provider not in standard list {}. be sure you want to do this.".format(",".join(standard_providers)))
+
+        self._config["default_provider"] = default_provider
 
     @property
     def boxes(self):

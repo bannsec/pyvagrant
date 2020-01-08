@@ -27,7 +27,7 @@ setup(
     ],
     keywords='vagrant',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-    install_requires=['prettytable', 'prompt_toolkit'],
+    install_requires=['prettytable', 'prompt_toolkit', 'appdirs'],
     extras_require={
         'dev': ['ipython','twine','pytest','python-coveralls','coverage==4.5.4','pytest-cov','pytest-xdist','sphinxcontrib-napoleon', 'sphinx_rtd_theme','sphinx-autodoc-typehints', 'pyOpenSSL', 'numpy'],
     },
