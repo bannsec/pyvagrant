@@ -11,14 +11,21 @@ class Cloud(object):
         subprocess.run(["vagrant", "cloud", "auth", "login", "-u", user])
         self._authenticated = None
 
-    def search(self, term):
-        """Search for boxes with term."""
+    def search(self, term, provider=None):
+        """Search for boxes with term.
+        
+        Args:
+            term (str): What to search for
+            provider (str, optional): What provider to search for.
+        """
 
         if not self.authenticated:
             LOGGER.error("Must be authenticated to search. Please .authenticate first.")
             return
 
-        results = subprocess.check_output(["vagrant", "cloud", "search", "-j", term])
+        command = ["vagrant", "cloud", "search", "-j", "--provider", provider or self._vagrant.default_provider, term]
+        print(command)
+        results = subprocess.check_output(command)
         results = json.loads(results)
 
         return [

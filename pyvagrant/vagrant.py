@@ -17,8 +17,8 @@ class Vagrant(object):
     def __repr__(self):
         return "<Vagrant v" + self.version + ">"
 
-    def search(self, term):
-        return self.cloud.search(term)
+    def search(self, term, *args, **kwargs):
+        return self.cloud.search(term, *args, **kwargs)
 
     @property
     def plugins(self):
