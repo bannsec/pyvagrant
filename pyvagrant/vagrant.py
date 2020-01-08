@@ -65,11 +65,20 @@ class Vagrant(object):
             self.__version = subprocess.check_output(["vagrant", "-v"]).decode().split(" ")[-1].strip()
             return self.__version
 
+    @property
+    def environments(self):
+        try:
+            return self.__environments
+        except AttributeError:
+            self.__environments = Environments(self)
+            return self.__environments
+
 
 import subprocess
 import re
 from .plugins import Plugins
 from .cloud import Cloud
 from .box import Box
+from .environments import Environments
 
 LOGGER = logging.getLogger(__name__)
