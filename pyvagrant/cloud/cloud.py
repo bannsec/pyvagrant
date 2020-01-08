@@ -24,7 +24,6 @@ class Cloud(object):
             return
 
         command = ["vagrant", "cloud", "search", "-j", "--provider", provider or self._vagrant.default_provider, term]
-        print(command)
         results = subprocess.check_output(command)
         results = json.loads(results)
 
