@@ -52,7 +52,7 @@ class Vagrant(object):
         """list: What boxes are installed?"""
         output = subprocess.check_output(["vagrant", "box", "list"])
         boxes = []
-        for name, provider, version in re.findall(b"^(.+?) +\((.+?), +(.+?)\)", output):
+        for name, provider, version in re.findall(b"(.+?) +\((.+?), +(.+?)\)", output):
             boxes.append(Box(self, name.decode(), version.decode(), providers=provider.decode()))
 
         return boxes
