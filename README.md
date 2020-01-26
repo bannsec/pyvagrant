@@ -24,6 +24,11 @@ list(vagrant.environments)
 
 # List boxes
 list(vagrant.boxes)
+print(vagrant.boxes)
+
+# Get existing box by name
+box = vagrant.boxes["archlinux/archlinux"]
+box = vagrant.boxes["archlinux*"]
 
 # Search for a box in vagrant cloud
 vagrant.search("FreeBSD")

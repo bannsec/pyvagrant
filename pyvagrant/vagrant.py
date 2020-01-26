@@ -49,13 +49,12 @@ class Vagrant(object):
 
     @property
     def boxes(self):
-        """list: What boxes are installed?"""
-        output = subprocess.check_output(["vagrant", "box", "list"])
-        boxes = []
-        for name, provider, version in re.findall(b"(.+?) +\((.+?), +(.+?)\)", output):
-            boxes.append(Box(self, name.decode(), version.decode(), providers=provider.decode()))
-
-        return boxes
+        """pyvagrant.box.Boxes: What boxes are installed?"""
+        try:
+            return self.__boxes
+        except AttributeError:
+            self.__boxes = Boxes(self)
+            return self.__boxes
 
     @property
     def version(self):
@@ -78,7 +77,7 @@ import subprocess
 import re
 from .plugins import Plugins
 from .cloud import Cloud
-from .box import Box
+from .box import Boxes
 from .environments import Environments
 
 LOGGER = logging.getLogger(__name__)
