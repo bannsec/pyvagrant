@@ -7,6 +7,8 @@ class Environment(object):
         self._vagrant = vagrant
         self.name = name
 
+        os.makedirs(self._path, exist_ok=True)
+
     def remove(self):
         shutil.rmtree(self._path)
 

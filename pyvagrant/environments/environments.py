@@ -9,6 +9,10 @@ class Environments(object):
         
         os.makedirs(self._environments_dir, exist_ok=True)
 
+    def new(self, name):
+        """pyvagrant.environments.Environment: Creates a new environment."""
+        return Environment(self._vagrant, name)
+
     def __repr__(self):
         return "<Environments " + str(len(self)) + ">"
 
