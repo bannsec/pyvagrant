@@ -21,6 +21,9 @@ class Box(object):
     def __repr__(self):
         return "<Box " + self.name + " " + self.version + " " + ",".join(self.providers) + ">"
 
+    def __getstate__(self):
+        return {'name': self.name, 'version': self.version, 'downloads': self.downloads, 'providers': self.providers}
+
     @property
     def providers(self):
         return self.__providers
